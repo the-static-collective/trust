@@ -1,2 +1,10 @@
 export * from './types.js';
-export { assertMoment, validateMoment } from './validate.js';
+export {
+  assertMoment,
+  validateAuthorityEvent,
+  validateCertificateReadyPacket,
+  validateMoment,
+  validateTrustInstrument,
+  validateTrustProfile,
+  validateTrusteeTenure,
+} from './validate.js';

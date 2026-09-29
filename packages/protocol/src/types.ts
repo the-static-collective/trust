@@ -97,3 +97,74 @@ export type ValidationError = { path: string; message: string };
 export type ValidationResult<T> =
   | { ok: true; value: T }
   | { ok: false; errors: ValidationError[] };
+
+
+export type TrustProfile = {
+  trust_id: string;
+  legal_name: string;
+  instrument_refs: string[];
+  instrument_date: string;
+  stated_purpose: string;
+  governing_law: string;
+  principal_place_of_administration: string;
+  trustee_tenure_refs: string[];
+  status: 'active' | 'terminated' | 'revoked' | 'unknown';
+  extensions?: Extensions;
+};
+
+export type TrustInstrument = {
+  instrument_id: string;
+  instrument_type: 'declaration' | 'agreement' | 'amendment' | 'restatement' | 'other';
+  carrier_refs: string[];
+  effective_at?: string;
+  recorded_at: string;
+  supersedes: string[];
+  extensions?: Extensions;
+};
+
+export type TrusteeTenure = {
+  tenure_id: string;
+  trustee_ref: string;
+  designation_ref: string;
+  acceptance_status: 'designated' | 'accepted' | 'declined' | 'resigned' | 'removed' | 'ended' | 'unknown';
+  acceptance_method?: 'instrument_method' | 'accepted_property' | 'exercised_power' | 'performed_duty' | 'other_recorded_conduct';
+  acceptance_carrier_refs: string[];
+  starts_at?: string;
+  ends_at?: string;
+  powers: string[];
+  limitations: string[];
+  extensions?: Extensions;
+};
+
+export type AuthorityEvent = {
+  event_id: string;
+  actor_refs: string[];
+  action_type: string;
+  authority_basis_refs: string[];
+  approval_refs: string[];
+  effective_at?: string;
+  recorded_at: string;
+  status: 'proposed' | 'approved' | 'executed' | 'reversed' | 'disputed' | 'unknown';
+  extensions?: Extensions;
+};
+
+export type CertificateReadyTrustee = {
+  trustee_ref: string;
+  address?: string;
+  powers: string[];
+  limitations: string[];
+};
+
+export type CertificateReadyPacket = {
+  packet_id: string;
+  trust_id: string;
+  trust_name: string;
+  instrument_date: string;
+  trustees: CertificateReadyTrustee[];
+  trustees_required_to_act: number;
+  termination_revocation_state: 'active' | 'terminated' | 'revoked' | 'unknown';
+  authority_boundary: 'draft_data_only';
+  prepared_at: string;
+  execution_carrier_refs?: string[];
+  extensions?: Extensions;
+};

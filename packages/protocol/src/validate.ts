@@ -8,7 +8,12 @@ import directStatementSchema from '../schemas/direct-statement.schema.json' with
 import privacyPolicySchema from '../schemas/privacy-policy.schema.json' with { type: 'json' };
 import audiencePolicySchema from '../schemas/audience-policy.schema.json' with { type: 'json' };
 import momentSchema from '../schemas/moment.schema.json' with { type: 'json' };
-import type { Moment, ValidationError, ValidationResult } from './types.js';
+import trustProfileSchema from '../schemas/trust-profile.schema.json' with { type: 'json' };
+import trustInstrumentSchema from '../schemas/trust-instrument.schema.json' with { type: 'json' };
+import trusteeTenureSchema from '../schemas/trustee-tenure.schema.json' with { type: 'json' };
+import authorityEventSchema from '../schemas/authority-event.schema.json' with { type: 'json' };
+import certificateReadyPacketSchema from '../schemas/certificate-ready-packet.schema.json' with { type: 'json' };
+import type { AuthorityEvent, CertificateReadyPacket, Moment, TrustInstrument, TrustProfile, TrusteeTenure, ValidationError, ValidationResult } from './types.js';
 
 const ajv = new Ajv2020({ allErrors: true, strict: false });
 addFormats(ajv);
@@ -21,6 +26,11 @@ for (const schema of [
   privacyPolicySchema,
   audiencePolicySchema,
   momentSchema,
+  trustProfileSchema,
+  trustInstrumentSchema,
+  trusteeTenureSchema,
+  authorityEventSchema,
+  certificateReadyPacketSchema,
 ]) {
   ajv.addSchema(schema);
 }
@@ -28,6 +38,18 @@ for (const schema of [
 const registeredMomentValidator = ajv.getSchema('https://trust.static/schemas/moment.schema.json');
 if (!registeredMomentValidator) throw new Error('Moment schema failed to register');
 const momentValidator = registeredMomentValidator;
+
+function registeredValidator(id: string) {
+  const validator = ajv.getSchema(id);
+  if (!validator) throw new Error(`Schema failed to register: ${id}`);
+  return validator;
+}
+
+const trustProfileValidator = registeredValidator('https://trust.static/schemas/trust-profile.schema.json');
+const trustInstrumentValidator = registeredValidator('https://trust.static/schemas/trust-instrument.schema.json');
+const trusteeTenureValidator = registeredValidator('https://trust.static/schemas/trustee-tenure.schema.json');
+const authorityEventValidator = registeredValidator('https://trust.static/schemas/authority-event.schema.json');
+const certificateReadyPacketValidator = registeredValidator('https://trust.static/schemas/certificate-ready-packet.schema.json');
 
 const FORBIDDEN_KEYS = new Set([
   'parent_score',
@@ -119,4 +141,68 @@ export function assertMoment(value: unknown): Moment {
     throw new Error(`Invalid Moment: ${detail}`);
   }
   return result.value;
+}
+
+
+function validateWithSchema<T>(
+  value: unknown,
+  validator: ReturnType<typeof registeredValidator>,
+  semanticErrors: ValidationError[] = [],
+): ValidationResult<T> {
+  const forbidden = scanForbidden(value);
+  const schemaOk = validator(value);
+  const errors = [...forbidden, ...schemaErrors(validator.errors), ...semanticErrors];
+  if (!schemaOk || errors.length) return { ok: false, errors };
+  return { ok: true, value: value as T };
+}
+
+export function validateTrustProfile(value: unknown): ValidationResult<TrustProfile> {
+  return validateWithSchema<TrustProfile>(value, trustProfileValidator);
+}
+
+export function validateTrustInstrument(value: unknown): ValidationResult<TrustInstrument> {
+  const errors: ValidationError[] = [];
+  if (value && typeof value === 'object') {
+    const item = value as Partial<TrustInstrument>;
+    requireOffset(item.effective_at, '$.effective_at', errors);
+    requireOffset(item.recorded_at, '$.recorded_at', errors);
+  }
+  return validateWithSchema<TrustInstrument>(value, trustInstrumentValidator, errors);
+}
+
+export function validateTrusteeTenure(value: unknown): ValidationResult<TrusteeTenure> {
+  const errors: ValidationError[] = [];
+  if (value && typeof value === 'object') {
+    const item = value as Partial<TrusteeTenure>;
+    requireOffset(item.starts_at, '$.starts_at', errors);
+    requireOffset(item.ends_at, '$.ends_at', errors);
+    if (item.acceptance_status === 'accepted') {
+      if (!item.acceptance_method) {
+        errors.push({ path: '$.acceptance_method', message: 'accepted trustee tenure requires recorded acceptance method' });
+      }
+      if (!item.acceptance_carrier_refs?.length) {
+        errors.push({ path: '$.acceptance_carrier_refs', message: 'accepted trustee tenure requires acceptance carrier evidence' });
+      }
+    }
+  }
+  return validateWithSchema<TrusteeTenure>(value, trusteeTenureValidator, errors);
+}
+
+export function validateAuthorityEvent(value: unknown): ValidationResult<AuthorityEvent> {
+  const errors: ValidationError[] = [];
+  if (value && typeof value === 'object') {
+    const item = value as Partial<AuthorityEvent>;
+    requireOffset(item.effective_at, '$.effective_at', errors);
+    requireOffset(item.recorded_at, '$.recorded_at', errors);
+  }
+  return validateWithSchema<AuthorityEvent>(value, authorityEventValidator, errors);
+}
+
+export function validateCertificateReadyPacket(value: unknown): ValidationResult<CertificateReadyPacket> {
+  const errors: ValidationError[] = [];
+  if (value && typeof value === 'object') {
+    const item = value as Partial<CertificateReadyPacket>;
+    requireOffset(item.prepared_at, '$.prepared_at', errors);
+  }
+  return validateWithSchema<CertificateReadyPacket>(value, certificateReadyPacketValidator, errors);
 }

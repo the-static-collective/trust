@@ -1,0 +1,20 @@
+{
+  "$id": "https://trust.static/schemas/trustee-tenure.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["tenure_id", "trustee_ref", "designation_ref", "acceptance_status", "acceptance_carrier_refs", "powers", "limitations"],
+  "properties": {
+    "tenure_id": {"type": "string", "minLength": 1},
+    "trustee_ref": {"type": "string", "minLength": 1},
+    "designation_ref": {"type": "string", "minLength": 1},
+    "acceptance_status": {"enum": ["designated", "accepted", "declined", "resigned", "removed", "ended", "unknown"]},
+    "acceptance_method": {"enum": ["instrument_method", "accepted_property", "exercised_power", "performed_duty", "other_recorded_conduct"]},
+    "acceptance_carrier_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "starts_at": {"type": "string", "format": "date-time"},
+    "ends_at": {"type": "string", "format": "date-time"},
+    "powers": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "limitations": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "extensions": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/extensions"}
+  }
+}
