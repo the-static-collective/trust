@@ -8,6 +8,10 @@
     "test:boundary": "node --test scripts/check-public-boundary.test.mjs",
     "public-boundary": "node scripts/check-public-boundary.mjs",
     "test:docs": "node --test scripts/check-docs.test.mjs",
-    "docs:check": "node scripts/check-docs.mjs"
+    "docs:check": "node scripts/check-docs.mjs",
+    "test": "node --test scripts/check-public-boundary.test.mjs scripts/check-docs.test.mjs scripts/verify-contract.test.mjs && npm test --workspace @trust/protocol && npm test --workspace @trust/mobile",
+    "typecheck": "npm run typecheck --workspace @trust/protocol && npm run typecheck --workspace @trust/mobile",
+    "mobile:smoke": "npm run export:android --workspace @trust/mobile",
+    "verify": "npm run public-boundary && npm run docs:check && npm run test && npm run typecheck && npm run mobile:smoke"
   }
 }

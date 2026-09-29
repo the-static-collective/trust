@@ -48,7 +48,10 @@ npm run public-boundary
 Requirements: Node.js 22.13 or newer.
 
 ```bash
-npm install
+npm ci
+npm run verify
+
+# Individual gates remain available:
 npm test --workspace @trust/protocol
 npm run typecheck --workspace @trust/protocol
 npm test --workspace @trust/mobile
