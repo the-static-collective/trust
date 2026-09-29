@@ -136,6 +136,16 @@ function momentSemanticErrors(moment: Moment): ValidationError[] {
         message: 'adult-conflict material cannot be memory-eligible or child-facing',
       });
     }
+    if (
+      'account_kind' in record &&
+      (record.account_kind === 'allegation' || record.account_kind === 'administrative_record') &&
+      (record.memory_eligible || childFacing)
+    ) {
+      errors.push({
+        path,
+        message: 'allegation and administrative records cannot be memory-eligible or child-facing',
+      });
+    }
     requireOffset(record.recorded_at, `${path}.recorded_at`, errors);
     const recordedAt = Date.parse(record.recorded_at);
     for (const sourceRef of record.source_refs) {
