@@ -23,3 +23,5 @@ jobs:
         run: npm run public-boundary
       - name: Protocol tests if present
         run: npm test --workspace @trust/protocol --if-present
+      - name: Protocol typecheck if present
+        run: npm run typecheck --workspace @trust/protocol --if-present
