@@ -1,0 +1,23 @@
+{
+  "name": "@trust/mobile",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "index.ts",
+  "scripts": {
+    "test": "vitest run",
+    "typecheck": "tsc --noEmit",
+    "export:android": "expo export --platform android --output-dir dist-smoke"
+  },
+  "dependencies": {
+    "@trust/protocol": "*",
+    "expo": "~57.0.1",
+    "react": "19.2.3",
+    "react-native": "0.86.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "typescript": "^5.9.2",
+    "vitest": "^3.2.4"
+  }
+}

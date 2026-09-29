@@ -1,0 +1,12 @@
+{
+  "$id": "https://trust.static/schemas/privacy-policy.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["child_future_access", "default_audience"],
+  "properties": {
+    "child_future_access": {"enum": ["allowed", "withheld_pending_review", "not_applicable"]},
+    "default_audience": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/audience"},
+    "extensions": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/extensions"}
+  }
+}

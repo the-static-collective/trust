@@ -1,0 +1,15 @@
+{
+  "$id": "https://trust.static/schemas/carrier.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["carrier_id", "kind", "status", "capture_receipt"],
+  "properties": {
+    "carrier_id": {"type": "string", "minLength": 1},
+    "kind": {"type": "string", "minLength": 1},
+    "status": {"enum": ["original", "derived"]},
+    "capture_receipt": {"$ref": "https://trust.static/schemas/capture-receipt.schema.json"},
+    "parent_carrier_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "extensions": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/extensions"}
+  }
+}

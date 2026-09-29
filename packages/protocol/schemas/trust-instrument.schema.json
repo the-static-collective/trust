@@ -1,0 +1,16 @@
+{
+  "$id": "https://trust.static/schemas/trust-instrument.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["instrument_id", "instrument_type", "carrier_refs", "recorded_at", "supersedes"],
+  "properties": {
+    "instrument_id": {"type": "string", "minLength": 1},
+    "instrument_type": {"enum": ["declaration", "agreement", "amendment", "restatement", "other"]},
+    "carrier_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "effective_at": {"type": "string", "format": "date-time"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "supersedes": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "extensions": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/extensions"}
+  }
+}

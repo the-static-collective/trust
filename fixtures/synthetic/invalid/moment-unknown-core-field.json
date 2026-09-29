@@ -1,0 +1,13 @@
+{
+  "protocol_version": "0.1.0",
+  "moment_id": "moment-invalid-unknown-field",
+  "event_window": {"start": "2026-09-29T12:15:00-05:00"},
+  "occurrence_status": "observed",
+  "capture_mode": "near_contemporaneous",
+  "carriers": [],
+  "accounts": [],
+  "direct_statements": [],
+  "privacy_policy": {"child_future_access": "not_applicable", "default_audience": "private_archive"},
+  "audience_policy": {"allowed": ["private_archive"]},
+  "mystery_meaning": true
+}

@@ -1,0 +1,81 @@
+{
+  "protocol_version": "0.1.0",
+  "moment_id": "moment-synthetic-red-swing-001",
+  "title": "The Red Swing",
+  "event_window": {
+    "start": "2026-09-29T12:15:00-05:00",
+    "end": "2026-09-29T13:05:00-05:00"
+  },
+  "occurrence_status": "observed",
+  "capture_mode": "near_contemporaneous",
+  "carriers": [
+    {
+      "carrier_id": "carrier-synthetic-photo-001",
+      "kind": "photo",
+      "status": "original",
+      "capture_receipt": {
+        "receipt_id": "receipt-synthetic-photo-001",
+        "source_class": "device_capture",
+        "captured_at": "2026-09-29T12:22:00-05:00",
+        "imported_at": "2026-09-29T12:22:01-05:00",
+        "size_bytes": 123456,
+        "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+        "mime_type": "image/jpeg",
+        "capture_method": "synthetic_fixture",
+        "vault_ref": "local:synthetic-photo-001"
+      }
+    }
+  ],
+  "accounts": [
+    {
+      "account_id": "account-synthetic-parent-a",
+      "author_ref": "person-synthetic-parent-a",
+      "account_kind": "observation",
+      "recorded_at": "2026-09-29T13:00:00-05:00",
+      "text": "Child returned to the red swing several times.",
+      "source_refs": ["carrier-synthetic-photo-001"],
+      "audiences": ["private_archive", "child_future", "scrapbook"],
+      "adult_conflict": false,
+      "memory_eligible": true,
+      "assertions": [
+        {"key": "activity", "value": "red swing"},
+        {"key": "pickup_time", "value": "13:00"}
+      ]
+    },
+    {
+      "account_id": "account-synthetic-parent-b",
+      "author_ref": "person-synthetic-parent-b",
+      "account_kind": "observation",
+      "recorded_at": "2026-09-29T13:06:00-05:00",
+      "text": "Pickup looked closer to 1:05.",
+      "source_refs": ["carrier-synthetic-photo-001"],
+      "audiences": ["private_archive", "co_parent"],
+      "adult_conflict": false,
+      "memory_eligible": false,
+      "assertions": [
+        {"key": "pickup_time", "value": "13:05"}
+      ]
+    }
+  ],
+  "direct_statements": [
+    {
+      "statement_id": "statement-synthetic-child-001",
+      "speaker_ref": "person-synthetic-child-a",
+      "recorded_by_ref": "person-synthetic-parent-a",
+      "recorded_at": "2026-09-29T12:45:00-05:00",
+      "quote_mode": "exact",
+      "text": "Again!",
+      "source_refs": ["carrier-synthetic-photo-001"],
+      "audiences": ["private_archive", "child_future", "scrapbook"],
+      "adult_conflict": false,
+      "memory_eligible": true
+    }
+  ],
+  "privacy_policy": {
+    "child_future_access": "allowed",
+    "default_audience": "private_archive"
+  },
+  "audience_policy": {
+    "allowed": ["private_archive", "child_future", "scrapbook", "co_parent"]
+  }
+}

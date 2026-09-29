@@ -1,0 +1,19 @@
+{
+  "$id": "https://trust.static/schemas/trust-profile.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["trust_id", "legal_name", "instrument_refs", "instrument_date", "stated_purpose", "governing_law", "principal_place_of_administration", "trustee_tenure_refs", "status"],
+  "properties": {
+    "trust_id": {"type": "string", "minLength": 1},
+    "legal_name": {"type": "string", "minLength": 1},
+    "instrument_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "instrument_date": {"type": "string", "format": "date"},
+    "stated_purpose": {"type": "string", "minLength": 1},
+    "governing_law": {"type": "string", "minLength": 1},
+    "principal_place_of_administration": {"type": "string", "minLength": 1},
+    "trustee_tenure_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "status": {"enum": ["active", "terminated", "revoked", "unknown"]},
+    "extensions": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/extensions"}
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "$id": "https://trust.static/schemas/capture-receipt.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["receipt_id", "source_class", "imported_at", "size_bytes", "sha256", "mime_type", "capture_method", "vault_ref"],
+  "properties": {
+    "receipt_id": {"type": "string", "minLength": 1},
+    "source_class": {"type": "string", "minLength": 1},
+    "captured_at": {"type": "string", "format": "date-time"},
+    "imported_at": {"type": "string", "format": "date-time"},
+    "size_bytes": {"type": "integer", "minimum": 0},
+    "sha256": {"type": "string", "pattern": "^[a-f0-9]{64}$"},
+    "mime_type": {"type": "string", "minLength": 1},
+    "capture_method": {"type": "string", "minLength": 1},
+    "vault_ref": {"type": "string", "minLength": 1},
+    "extensions": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/extensions"}
+  }
+}

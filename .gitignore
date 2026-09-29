@@ -1,0 +1,12 @@
+node_modules/
+dist/
+dist-smoke/
+.expo/
+coverage/
+*.log
+.env
+.env.*
+!.env.example
+.DS_Store
+.superpowers/
+.worktrees/

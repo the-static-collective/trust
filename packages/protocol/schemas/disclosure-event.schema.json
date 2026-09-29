@@ -1,0 +1,21 @@
+{
+  "$id": "https://trust.static/schemas/disclosure-event.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["disclosure_event_id", "trust_id", "audience", "material_refs", "furnished_carrier_refs", "recorded_at"],
+  "properties": {
+    "disclosure_event_id": {"type": "string", "minLength": 1},
+    "trust_id": {"type": "string", "minLength": 1},
+    "requested_at": {"type": "string", "format": "date-time"},
+    "requester_ref": {"type": "string", "minLength": 1},
+    "audience": {"type": "string", "minLength": 1},
+    "material_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "furnished_at": {"type": "string", "format": "date-time"},
+    "furnished_carrier_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "waiver_ref": {"type": "string", "minLength": 1},
+    "governing_instrument_basis_ref": {"type": "string", "minLength": 1},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "extensions": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/extensions"}
+  }
+}
