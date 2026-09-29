@@ -1,0 +1,24 @@
+name: genesis-dev
+
+on:
+  push:
+    branches: ["build/genesis-native-0.1.0"]
+
+permissions:
+  contents: read
+
+jobs:
+  task-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install
+        run: npm install
+      - name: Boundary
+        run: npm run public-boundary
+      - name: Protocol tests if present
+        run: npm test --workspace @trust/protocol --if-present
