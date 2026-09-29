@@ -1,4 +1,4 @@
-export * from './types.js';
+export * from './types';
 export {
   assertMoment,
   validateAuthorityEvent,
@@ -13,4 +13,4 @@ export {
   validateTrustProfile,
   validateTrustTransaction,
   validateTrusteeTenure,
-} from './validate.js';
+} from './validate';
