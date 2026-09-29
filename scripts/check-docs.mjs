@@ -26,6 +26,13 @@ async function readMaybe(root, path) {
 export async function checkDocs(root) {
   const packageJsonText = await readMaybe(root, 'package.json');
   const packageJson = packageJsonText ? JSON.parse(packageJsonText) : { scripts: {} };
+  const scriptNames = new Set(Object.keys(packageJson.scripts ?? {}));
+  for (const workspacePath of ['packages/protocol/package.json', 'apps/mobile/package.json']) {
+    const workspaceText = await readMaybe(root, workspacePath);
+    if (!workspaceText) continue;
+    const workspace = JSON.parse(workspaceText);
+    for (const name of Object.keys(workspace.scripts ?? {})) scriptNames.add(name);
+  }
   const contents = new Map();
   const missing = [];
   const placeholders = [];
@@ -50,8 +57,8 @@ export async function checkDocs(root) {
   const commandPattern = /npm run ([a-zA-Z0-9:_-]+)/g;
   for (const match of readme.matchAll(commandPattern)) {
     const name = match[1];
-    if (!packageJson.scripts?.[name]) {
-      commandProblems.push({ command: name, reason: 'missing package.json script' });
+    if (!scriptNames.has(name)) {
+      commandProblems.push({ command: name, reason: 'missing root/workspace package script' });
     }
   }
 
