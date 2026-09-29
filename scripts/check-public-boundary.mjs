@@ -12,9 +12,10 @@ const PROHIBITED_EXTENSIONS = new Set([
   '.zip', '.sqlite', '.sqlite3', '.db', '.xml',
 ]);
 const PRIVATE_SOURCE_MARKER = ['gdrive', ':'].join('');
-const DESIGN_PREFIXES = [
-  'docs/superpowers/specs/',
-  'docs/superpowers/plans/',
+const PUBLIC_ASSET_PREFIXES = ['apps/mobile/assets/'];
+const PRIVATE_SOURCE_PATTERNS = [
+  new RegExp(PRIVATE_SOURCE_MARKER + '[A-Za-z0-9_-]{8,}', 'i'),
+  /https?:\\/\\/(?:drive|docs)\\.google\\.com\\/(?:file\\/d\\/|drive\\/folders\\/|document\\/d\\/|spreadsheets\\/d\\/|presentation\\/d\\/)[A-Za-z0-9_-]{8,}/i,
 ];
 
 async function defaultListFiles(root) {
@@ -26,8 +27,8 @@ function normalizeRoot(root) {
   return root instanceof URL ? fileURLToPath(root) : resolve(String(root));
 }
 
-function isDesignArtifact(path) {
-  return DESIGN_PREFIXES.some((prefix) => path.startsWith(prefix));
+function isPublicAsset(path) {
+  return PUBLIC_ASSET_PREFIXES.some((prefix) => path.startsWith(prefix));
 }
 
 export async function checkPublicBoundary(root, options = {}) {
@@ -46,7 +47,7 @@ export async function checkPublicBoundary(root, options = {}) {
     }
 
     const extension = extname(path).toLowerCase();
-    if (PROHIBITED_EXTENSIONS.has(extension)) {
+    if (PROHIBITED_EXTENSIONS.has(extension) && !isPublicAsset(path)) {
       violations.push({ path, reason: `prohibited raw-carrier extension: ${extension}` });
       continue;
     }
@@ -57,8 +58,8 @@ export async function checkPublicBoundary(root, options = {}) {
     } catch {
       continue;
     }
-    if (!isDesignArtifact(path) && content.includes(PRIVATE_SOURCE_MARKER)) {
-      violations.push({ path, reason: `${PRIVATE_SOURCE_MARKER} source references are private-boundary material` });
+    if (PRIVATE_SOURCE_PATTERNS.some((pattern) => pattern.test(content))) {
+      violations.push({ path, reason: 'private source reference is not allowed in the public repository' });
     }
   }
 
