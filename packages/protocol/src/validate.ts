@@ -25,8 +25,9 @@ for (const schema of [
   ajv.addSchema(schema);
 }
 
-const momentValidator = ajv.getSchema('https://trust.static/schemas/moment.schema.json');
-if (!momentValidator) throw new Error('Moment schema failed to register');
+const registeredMomentValidator = ajv.getSchema('https://trust.static/schemas/moment.schema.json');
+if (!registeredMomentValidator) throw new Error('Moment schema failed to register');
+const momentValidator = registeredMomentValidator;
 
 const FORBIDDEN_KEYS = new Set([
   'parent_score',
