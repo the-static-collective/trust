@@ -29,3 +29,5 @@ jobs:
         run: npm test --workspace @trust/mobile --if-present
       - name: Mobile typecheck if present
         run: npm run typecheck --workspace @trust/mobile --if-present
+      - name: Expo Android export smoke
+        run: npm run export:android --workspace @trust/mobile
