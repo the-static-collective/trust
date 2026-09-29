@@ -43,7 +43,7 @@ test('rejects gdrive source refs', async () => {
       listFiles: async () => ['fixtures/synthetic/bad.json'],
     });
     assert.equal(result.ok, false);
-    assert.equal(result.violations[0].reason.toLowerCase().includes(['gdrive', ':'].join('')), true);
+    assert.match(result.violations[0].reason, /private source reference/i);
   });
 });
 
