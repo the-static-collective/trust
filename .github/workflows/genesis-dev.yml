@@ -7,7 +7,7 @@ on:
     branches: [main]
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   task-tests:
@@ -19,6 +19,16 @@ jobs:
           node-version: "22"
       - name: Install
         run: npm install
+      - name: Commit generated lockfile
+        if: github.event_name == 'push'
+        run: |
+          if ! git ls-files --error-unmatch package-lock.json >/dev/null 2>&1; then
+            git config user.name "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add package-lock.json
+            git commit -m "Build: lock Genesis dependencies"
+            git push origin HEAD:${GITHUB_REF_NAME}
+          fi
       - name: Boundary
         run: npm run public-boundary
       - name: Protocol tests if present
