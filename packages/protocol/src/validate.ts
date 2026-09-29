@@ -127,6 +127,15 @@ function momentSemanticErrors(moment: Moment): ValidationError[] {
     ...moment.direct_statements.map((record, index) => ({ record, path: `$.direct_statements[${index}]` })),
   ];
   for (const { record, path } of records) {
+    const childFacing =
+      record.audiences.includes('scrapbook') ||
+      record.audiences.includes('child_future');
+    if (record.adult_conflict && (record.memory_eligible || childFacing)) {
+      errors.push({
+        path,
+        message: 'adult-conflict material cannot be memory-eligible or child-facing',
+      });
+    }
     requireOffset(record.recorded_at, `${path}.recorded_at`, errors);
     const recordedAt = Date.parse(record.recorded_at);
     for (const sourceRef of record.source_refs) {
