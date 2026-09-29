@@ -1,0 +1,23 @@
+{
+  "$id": "https://trust.static/schemas/common.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "extensions": {
+      "type": "object",
+      "propertyNames": {"pattern": "^[^.]+\\..+$"},
+      "additionalProperties": true
+    },
+    "audience": {
+      "enum": ["private_archive", "co_parent", "professional", "child_future", "scrapbook", "trust_admin"]
+    },
+    "assertion": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["key", "value"],
+      "properties": {
+        "key": {"type": "string", "minLength": 1},
+        "value": {}
+      }
+    }
+  }
+}

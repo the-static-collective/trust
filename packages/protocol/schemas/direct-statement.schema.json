@@ -1,0 +1,20 @@
+{
+  "$id": "https://trust.static/schemas/direct-statement.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["statement_id", "speaker_ref", "recorded_by_ref", "recorded_at", "quote_mode", "text", "source_refs", "audiences", "adult_conflict", "memory_eligible"],
+  "properties": {
+    "statement_id": {"type": "string", "minLength": 1},
+    "speaker_ref": {"type": "string", "minLength": 1},
+    "recorded_by_ref": {"type": "string", "minLength": 1},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "quote_mode": {"enum": ["exact", "paraphrase"]},
+    "text": {"type": "string"},
+    "source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "audiences": {"type": "array", "minItems": 1, "items": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/audience"}, "uniqueItems": true},
+    "adult_conflict": {"type": "boolean"},
+    "memory_eligible": {"type": "boolean"},
+    "extensions": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/extensions"}
+  }
+}

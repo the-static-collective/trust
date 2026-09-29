@@ -1,0 +1,29 @@
+{
+  "$id": "https://trust.static/schemas/moment.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["protocol_version", "moment_id", "event_window", "occurrence_status", "capture_mode", "carriers", "accounts", "direct_statements", "privacy_policy", "audience_policy"],
+  "properties": {
+    "protocol_version": {"const": "0.1.0"},
+    "moment_id": {"type": "string", "minLength": 1},
+    "title": {"type": "string"},
+    "event_window": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["start"],
+      "properties": {
+        "start": {"type": "string", "format": "date-time"},
+        "end": {"type": "string", "format": "date-time"}
+      }
+    },
+    "occurrence_status": {"enum": ["planned", "observed", "reported", "unknown"]},
+    "capture_mode": {"enum": ["contemporaneous", "near_contemporaneous", "retrospective", "imported_historical"]},
+    "carriers": {"type": "array", "items": {"$ref": "https://trust.static/schemas/carrier.schema.json"}},
+    "accounts": {"type": "array", "items": {"$ref": "https://trust.static/schemas/account.schema.json"}},
+    "direct_statements": {"type": "array", "items": {"$ref": "https://trust.static/schemas/direct-statement.schema.json"}},
+    "privacy_policy": {"$ref": "https://trust.static/schemas/privacy-policy.schema.json"},
+    "audience_policy": {"$ref": "https://trust.static/schemas/audience-policy.schema.json"},
+    "extensions": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/extensions"}
+  }
+}
