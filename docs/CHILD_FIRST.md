@@ -1,35 +1,32 @@
 # Child-First Contract
 
-Trust protects a child's life history without making the child an evidence object.
+Trust protects a child's future relationship to their own life history before it serves adult disputes.
 
 ## Laws
 
-- **CHILD != EVIDENCE OBJECT**
-- **PLANNED != OCCURRED**
-- **PRESENCE != PARTICIPATION**
-- **DIRECT STATEMENT != ADULT PARAPHRASE**
-- **DIVERGENT ACCOUNTS MAY COEXIST; DIFFERENCE != VERDICT**
-- **NO RECORD != NOTHING HAPPENED**
-- **MEMORY RENDERING != SOURCE**
-- **CHILD-FACING OUTPUT != ADULT-CONFLICT DOSSIER**
-- **PARENTING-RELEVANT != LEGALLY SIGNIFICANT**
+- `CHILD != EVIDENCE OBJECT`
+- `PLANNED != OCCURRED`
+- `PRESENCE != PARTICIPATION`
+- `DIRECT STATEMENT != ADULT PARAPHRASE`
+- `DIVERGENT ACCOUNTS MAY COEXIST; DIFFERENCE != VERDICT`
+- `NO RECORD != NOTHING HAPPENED`
+- `MEMORY RENDERING != SOURCE`
+- `CHILD-FACING OUTPUT != ADULT-CONFLICT DOSSIER`
+- `PARENTING-RELEVANT != LEGALLY SIGNIFICANT`
+- `MEMORABLE != MATERIAL`
 
 ## Parallel perspectives
 
-Two adults may attach different assertions to the same Moment. Trust may label a field `aligned`, `divergent`, or `single-perspective`. It does not choose a winner or promote one account into truth.
+Adults may attach separate structured accounts to one Moment. Trust may report a field as aligned, divergent, or single-perspective. It does not decide which adult is truthful, fit, better, or legally preferred.
+
+Automated parent, fitness, custody, truth, credibility, risk, best-parent, and legal-significance scores are prohibited by the protocol.
 
 ## Memory membrane
 
-A scrapbook-facing account must be explicitly memory-eligible and non-adult-conflict. Direct child statements retain whether they were recorded as an exact quote or a paraphrase.
+Scrapbook/child-facing renderers may consume explicitly memory-eligible material. Adult-conflict material and legal/administrative assertions do not become child-facing memory merely because they share a Moment.
 
-Adult-conflict material, allegations, and administrative/legal records belong behind different audience rules and must not silently enter child-facing memory.
+Direct child statements retain whether they were captured as exact words or paraphrase.
 
-## Prohibited scoring
+## Prospective ordinary life
 
-Trust must not implement automated parent, parental-fitness, custody, truth, credibility, risk, best-parent, or legal-significance scoring.
-
-The protection mechanism is preservation of distinctions and provenance—not automated judgment.
-
-## Future child agency
-
-The protocol includes child-future audience/access concepts so preservation today does not silently decide how a child must encounter the material later.
+A trustworthy archive should preserve ordinary life before adults know what may later be disputed: boring afternoons, meals, school events, jokes, completed plans, missed plans, photos, and differing recollections. Prospective capture does not make later claims true; it makes selection history more visible.

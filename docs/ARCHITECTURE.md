@@ -1,73 +1,57 @@
 # Architecture
 
-## Shape
+## One graph, multiple lawful renderings
 
-Trust is an npm-workspaces monorepo with two executable Genesis surfaces:
-
-```text
-packages/protocol
-    ↓
-canonical synthetic fixtures
-    ↓
-apps/mobile
-```
-
-`@trust/protocol` is runtime-neutral source intended for bundler consumers. It contains durable JSON Schema plus TypeScript validators/types. The Expo application validates protocol data before rendering it.
-
-## Core primitive
-
-A **Moment** is an addressable piece of life.
+Trust stores addressable life and stewardship records. A **Moment** is the central life primitive. It may connect to carriers, capture receipts, accounts, direct statements, people, memory relations, trust relations, privacy policies, and descendants.
 
 ```text
+original carrier
+      ↓
+capture receipt
+      ↓
 Moment
-├── event window
-├── carriers + capture receipts
-├── accounts / observer assertions
-├── direct statements
-├── privacy + audience policy
-└── extensions
+ ├─ accounts / perspectives
+ ├─ memory relations
+ ├─ trust relations
+ └─ descendants
+      ↓
+renderers
+ scrapbook | chronology | trust ledger | provenance export
 ```
 
-A Moment is not automatically evidence, memory, or a trust entry. Those are later relations/renderings.
+A renderer does not mutate its ancestors or gain authority merely because it is printable.
 
-## Trust protocol
+## Genesis packages
 
-Genesis also models the record classes needed to preserve Minnesota trust administration context:
+### `@trust/protocol`
 
-- TrustProfile
-- TrustInstrument
-- TrusteeTenure
-- AuthorityEvent
-- TrustAsset
-- TrustTransaction
-- TrustDecision
-- ConflictDisclosure
-- DisclosureEvent
-- CompliancePosition
-- CertificateReadyPacket
+Runtime-neutral public contract. JSON Schema Draft 2020-12 provides durable interchange definitions; TypeScript/Ajv provides the first executable validator.
 
-These objects preserve attributable state. They do not adjudicate legal validity.
+The canonical synthetic examples are exported from `@trust/protocol/examples` so mobile code consumes the same fixture the protocol tests validate.
+
+### `@trust/mobile`
+
+Expo/React Native shell. Genesis renders a validated synthetic Moment and keeps memory, perspective divergence, and provenance visually separate.
 
 ## Future capture/vault boundary
 
-Crossing 2 will introduce native capture and an encrypted local vault. The architectural order is already fixed:
+Crossing 2 adds the app-controlled vault. Its contract is already fixed conceptually:
 
 ```text
-original bytes
-→ app-controlled preserved copy
-→ cryptographic receipt
-→ Moment relation
-→ human narration / interpretation
+bytes arrive
+→ original copied to vault
+→ SHA-256 computed
+→ receipt persisted
+→ Moment attached
+→ narration begins
 ```
 
-Edits create descendants; they do not mutate original carriers.
+Edits become descendants. Original carriers are never overwritten.
 
 ## Versioning
 
-Trust software starts at 0.1.0. Protocol objects carry a protocol version separately from application release versions. Future schema migrations must be explicit and conformance-tested.
+Trust software begins at `0.1.0`. Protocol versions are explicit in serialized objects. Future schema evolution must not silently assign meaning to unknown core properties; extension data belongs under namespaced `extensions`.
 
-## Renderer separation
+## Storage posture
 
-Scrapbook, life chronology, trust ledger, child-future archive, provenance/evidence packet, and certificate-ready draft packet are separate renderers over shared source relations.
-
-**RENDERING != AUTHORITY.**
+Genesis has no mandatory cloud account. The target architecture is local-first. Shared synchronization is a later crossing and must preserve multiple perspectives rather than convert disagreement into last-write-wins truth.

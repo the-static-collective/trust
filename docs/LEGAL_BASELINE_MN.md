@@ -1,6 +1,6 @@
-# Minnesota Religious / Charitable Trust Record Baseline
+# Minnesota Religious / Charitable Trust Record-Preservation Baseline
 
-This document defines a **record-preservation baseline for product design**. It is not a determination that a particular trust exists, has ecclesiastical status, is tax-exempt, or satisfies all execution/filing requirements.
+This document defines **record classes Trust should be able to preserve**. It is not legal advice and does not assert that using Trust creates a valid trust, grants fiduciary authority, establishes church status, or proves an exemption.
 
 ## Governing boundary
 
@@ -10,93 +10,86 @@ This document defines a **record-preservation baseline for product design**. It 
 
 **EXEMPTION CLAIM != EXEMPTION ESTABLISHED.**
 
-Trust uses Minnesota's charitable/religious trust rules as a floor for the kinds of records the software should be able to preserve.
-
-## Religious / charitable purpose
-
-Minnesota includes religious purposes within charitable purposes. Product data should preserve stated purpose and governing instrument rather than infer special status from the word "ecclesiastical."
+Minnesota law includes religious purposes within charitable purposes. Trust therefore models a religious/charitable trust context without treating the word "ecclesiastical" as a magic statutory status.
 
 Primary sources:
-
 - Minn. Stat. § 501B.35 — https://www.revisor.mn.gov/statutes/cite/501B.35
-- Minnesota Trust Code definitions — https://www.revisor.mn.gov/statutes/cite/501C/full
+- Minnesota Trust Code, Chapter 501C — https://www.revisor.mn.gov/statutes/cite/501C/full
 
-## Creation records
+## Formation records
 
-The protocol can preserve:
+Minnesota recognizes trust creation methods including transfer of property to a trustee and declaration that identifiable property is held in trust. The product should preserve, where applicable:
 
-- governing instrument / declaration;
+- governing instrument/declaration;
 - instrument date;
-- settlor identity where applicable;
+- settlor identity;
 - stated purpose;
 - identifiable initial property;
 - transfer/declaration carrier;
 - trustee designation and duties;
-- amendments/restatements and their ancestry.
+- amendments/restatements.
 
-Primary sources:
-
-- Minn. Stat. § 501C.0401 — https://www.revisor.mn.gov/statutes/cite/501C.0401
-- Minn. Stat. § 501C.0402 — https://www.revisor.mn.gov/statutes/cite/501C.0402
-- Minn. Stat. § 501C.0404 — https://www.revisor.mn.gov/statutes/cite/501C.0404
+Sources:
+- § 501C.0401 — https://www.revisor.mn.gov/statutes/cite/501C.0401
+- § 501C.0402 — https://www.revisor.mn.gov/statutes/cite/501C.0402
+- § 501C.0404 — https://www.revisor.mn.gov/statutes/cite/501C.0404
 
 ## Trustee acceptance
 
-Trustee tenure records preserve designation, acceptance status/method, acceptance carrier references, powers, limitations, and tenure dates.
+Preserve designation, recorded acceptance method/conduct, carrier references, effective dates, powers/limitations, and resignation/removal/succession history.
 
-Primary source:
+Source:
+- § 501C.0701 — https://www.revisor.mn.gov/statutes/cite/501C.0701
 
-- Minn. Stat. § 501C.0701 — https://www.revisor.mn.gov/statutes/cite/501C.0701
+## Adequate administration records and property separation
 
-## Adequate records + property separation
+Minnesota requires adequate records of trust administration and separation of trust property from the trustee's own property. Trust should therefore represent:
 
-The protocol makes asset ownership state, custody location, ownership/title carriers, restrictions, acquisitions/dispositions, receipts, expenditures, distributions, transfers, reimbursements, and reconciliations addressable.
+- asset identity and ownership state;
+- acquisition/disposition;
+- title/ownership carriers;
+- custody/account identity;
+- restrictions/designations;
+- contributions, expenditures, distributions, transfers, reimbursements;
+- reconciliations;
+- explicit trust-property versus personal-property state.
 
-A user's categorization cannot silently promote personal property into trust property.
+Categorizing something in the app does not transfer title.
 
-Primary source:
+Source:
+- § 501C.0810 — https://www.revisor.mn.gov/statutes/cite/501C.0810
 
-- Minn. Stat. § 501C.0810 — https://www.revisor.mn.gov/statutes/cite/501C.0810
+## Loyalty and conflicts
 
-## Loyalty / conflicts
+Preserve related-party/conflict disclosure, the affected action or transaction, recusal/nonparticipation, authority basis, approvals/consents/order carriers where present, effective date, and later ratification/challenge.
 
-ConflictDisclosure preserves related parties, action/transaction reference, disclosure carrier, recusal state, approvals/consents/court-order references, and time.
+Source:
+- § 501C.0802 — https://www.revisor.mn.gov/statutes/cite/501C.0802
 
-The record does not issue a loyalty verdict.
+## Information and reporting trail
 
-Primary source:
+Where applicable, preserve requests, requester/audience, furnished materials, furnished time, waiver carrier, and governing-instrument basis.
 
-- Minn. Stat. § 501C.0802 — https://www.revisor.mn.gov/statutes/cite/501C.0802
+Source:
+- § 501C.0813 — https://www.revisor.mn.gov/statutes/cite/501C.0813
 
-## Information / reporting
+## Certificate-ready data
 
-DisclosureEvent can preserve a request, requester/audience, material furnished, timestamps, waiver/governing-instrument basis, and furnishing carrier.
+The protocol preserves compact identity/authority inputs useful for a later Minnesota certificate-of-trust workflow: trust name, instrument date, acting trustees, addresses, powers/limitations, number required to act, and termination/revocation state.
 
-Primary source:
+The in-app object remains `draft_data_only`; execution/formality state requires its own carriers.
 
-- Minn. Stat. § 501C.0813 — https://www.revisor.mn.gov/statutes/cite/501C.0813
+Source:
+- § 501C.1013 — https://www.revisor.mn.gov/statutes/cite/501C.1013
 
-## Certificate-ready identity
+## Charitable-trust registration and religious exemption position
 
-The draft packet can preserve trust name, instrument date, trustees, addresses, powers/limitations, number of trustees required to act, and termination/revocation state.
+Minnesota charitable-trust registration/reporting law includes religious exemptions in specified circumstances. The Attorney General provides current charitable-organization/trust guidance and an exemption-notification process.
 
-Its mandatory authority boundary is `draft_data_only`.
+Trust records this as a `CompliancePosition`: obligation type, jurisdiction, claimed status, authority source, factual basis, filing carriers, acknowledgment carriers, effective window, and supersession.
 
-Primary source:
+It never turns a recorded filing or claim into `legally_exempt=true`.
 
-- Minn. Stat. § 501C.1013 — https://www.revisor.mn.gov/statutes/cite/501C.1013
-
-## Charitable-trust registration / claimed exemption
-
-CompliancePosition preserves obligation type, jurisdiction, claimed status, authority sources, factual basis, filed carriers, acknowledgments, effective window, and supersession.
-
-It can record `claimed_exempt`; it cannot state `legally_exempt` as an automated verdict.
-
-Primary sources:
-
-- Minn. Stat. § 501B.36 — https://www.revisor.mn.gov/statutes/cite/501B.36
-- Minnesota Attorney General charitable organizations/trusts information — https://www.ag.state.mn.us/charity/InfoCharitableorgandTrusts.asp
-
-## Product bar
-
-Genesis meets the record-model bar when the public synthetic fixture can represent the categories above while every authority/exemption conclusion remains attributed, descriptive, and reversible through explicit descendant records.
+Sources:
+- § 501B.36 — https://www.revisor.mn.gov/statutes/cite/501B.36
+- Minnesota Attorney General — https://www.ag.state.mn.us/charity/InfoCharitableorgandTrusts.asp

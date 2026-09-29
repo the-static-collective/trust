@@ -2,41 +2,40 @@
 
 **Trust** is a public, child-first, local-first life and stewardship instrument.
 
-The ordinary front door is a beautiful family scrapbook: capture a Moment, preserve the original, write what you saw, keep exact or paraphrased statements distinct, and compose memories over time. Underneath that experience is a provenance protocol designed so the same life history can later support stewardship, trust administration, parallel perspectives, and narrow evidence exports without turning those renderings into one another.
+The ordinary front door is a beautiful family scrapbook: capture a Moment, remember what happened, preserve a child's words, and compose a life history. Underneath that surface, Trust preserves provenance so the same history can later support stewardship, trust administration, parallel-perspective review, and narrow evidence exports without those uses becoming each other.
 
 > **Capture life once. Preserve what happened to the record. Let memory, stewardship, disagreement, and evidence compose from the same history without becoming each other.**
 
-## Genesis status
+## Genesis
 
-Trust 0.1.0 currently proves:
+Trust 0.1.0 is proving one public loop:
 
 ```text
 public protocol
 → synthetic child-first Moment
-→ Minnesota religious/charitable trust record baseline
-→ native Expo mobile rendering
-→ public-boundary + protocol/mobile verification
+→ Minnesota trust record baseline
+→ native mobile validation/render
+→ CI
 ```
 
-The current mobile shell renders synthetic data only. Native camera/audio/video capture and the encrypted local vault are the next crossing, not hidden unfinished behavior in Genesis.
+The current mobile shell deliberately uses synthetic data. Native camera/audio/document capture and the encrypted local vault are Crossing 2.
 
-## Laws
+## Core laws
 
-- **MOMENT != CLAIM != MEMORY != EVIDENCE != TRUST ENTRY**
-- **CHILD != EVIDENCE OBJECT**
-- **CAPTURE != INTERPRETATION**
-- **PLANNED != OCCURRED**
-- **DIRECT STATEMENT != ADULT PARAPHRASE**
-- **DIVERGENT ACCOUNTS MAY COEXIST; DIFFERENCE != VERDICT**
-- **MEMORY RENDERING != SOURCE**
-- **TRUST RECORD != TRUST CREATION**
-- **RECORDED AUTHORITY != LEGAL AUTHORITY**
-- **EXEMPTION CLAIM != EXEMPTION ESTABLISHED**
-- **PUBLIC PROTOCOL != PRIVATE WITNESS CORPUS**
+- `MOMENT != CLAIM != MEMORY != EVIDENCE != TRUST ENTRY`
+- `CHILD != EVIDENCE OBJECT`
+- `CAPTURE != INTERPRETATION`
+- `PLANNED != OCCURRED`
+- `DIRECT STATEMENT != ADULT PARAPHRASE`
+- `DIVERGENT ACCOUNTS MAY COEXIST; DIFFERENCE != VERDICT`
+- `TRUST RECORD != TRUST CREATION`
+- `RECORDED AUTHORITY != LEGAL AUTHORITY`
+- `EXEMPTION CLAIM != EXEMPTION ESTABLISHED`
+- `PUBLIC PROTOCOL != PRIVATE WITNESS CORPUS`
 
 ## Public/private membrane
 
-Trust inherits generic provenance ideas from Black Star. It does not publish Black Star/WITNESS evidence, source IDs, case chronology, private carriers, or private ancestry. Every committed fixture is synthetic.
+Trust descends from Black Star's generic provenance ideas. It does **not** publish Black Star's private source graph, case material, private source identifiers, or raw witness corpus. Every public fixture is synthetic.
 
 Run the membrane check:
 
@@ -44,40 +43,32 @@ Run the membrane check:
 npm run public-boundary
 ```
 
-## Verify the protocol
+## Development
+
+Requirements: Node.js 22.13 or newer.
 
 ```bash
+npm install
 npm test --workspace @trust/protocol
 npm run typecheck --workspace @trust/protocol
-```
-
-## Verify the mobile shell
-
-```bash
 npm test --workspace @trust/mobile
 npm run typecheck --workspace @trust/mobile
+npm run docs:check
+npm run public-boundary
+```
+
+Mobile Android bundle smoke:
+
+```bash
 npm run export:android --workspace @trust/mobile
 ```
 
-## Verify durable docs
+## What Trust does not claim
 
-```bash
-npm run docs:check
-```
+Recording a trust, trustee, authority basis, filing, or exemption position does not make it legally valid. Trust preserves what was recorded, signed, transferred, decided, filed, or acknowledged and keeps the underlying carrier relationships available.
 
-## Architecture
+See [Trust boundary](docs/TRUST_BOUNDARY.md) and [Minnesota legal baseline](docs/LEGAL_BASELINE_MN.md).
 
-The public protocol is the authority for core object shape. The Expo app imports `@trust/protocol` and the canonical synthetic fixture through `@trust/protocol/examples`; it does not define a second mobile-only Moment format.
+## Roadmap
 
-Read:
-
-- [Roadmap](docs/ROADMAP.md)
-- [Architecture](docs/ARCHITECTURE.md)
-- [Child-first contract](docs/CHILD_FIRST.md)
-- [Trust/legal boundary](docs/TRUST_BOUNDARY.md)
-- [Provenance](docs/PROVENANCE.md)
-- [Minnesota record baseline](docs/LEGAL_BASELINE_MN.md)
-
-## Legal boundary
-
-Trust preserves records. It does not itself create a trust, confer fiduciary authority, establish tax status, determine an exemption, or replace execution formalities, filings, governing instruments, or professional advice where required.
+See [ROADMAP.md](docs/ROADMAP.md). The seven crossings move from the public protocol through native capture, life graph, scrapbook, trust ledger, shared reality, and export doors.

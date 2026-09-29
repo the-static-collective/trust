@@ -1,39 +1,34 @@
 # Provenance
 
-Trust is capture-before-narration software.
+## Capture before narration
 
-## Capture order
+For captured/imported carriers, the target product order is:
 
-For a future native carrier:
+1. receive original bytes;
+2. preserve them in the app-controlled vault;
+3. compute SHA-256;
+4. persist a CaptureReceipt;
+5. attach the carrier to a Moment;
+6. invite observation, caption, quote, trust relation, or interpretation.
 
-1. receive or create original bytes;
-2. preserve them in the app-controlled local vault;
-3. compute a cryptographic digest over the preserved original;
-4. create a capture receipt;
-5. create or attach the carrier to a Moment;
-6. then invite observation, caption, quote, trust relation, or interpretation.
+`CAPTURE != INTERPRETATION`.
 
-Genesis models this contract with synthetic carrier metadata; Crossing 2 implements device capture and storage.
+## Carrier
 
-## Separation
+A Carrier represents a source object or a descendant. It records whether it is original or derived and links derived material to its parent rather than replacing the parent.
 
-- **SOURCE != PROPOSITION**
-- **CAPTURE != INTERPRETATION**
-- **POINTER != PAYLOAD**
-- **TRANSCRIPTION != IMAGE**
-- **DISCOVERY ORDER != EVENT ORDER**
-- **DOCUMENT COUNT != SOURCE COUNT**
+## CaptureReceipt
 
-A carrier has stable identity. A capture receipt records source class, timestamps, byte size, SHA-256, MIME type, capture method, and an opaque local vault reference.
+A receipt preserves source class, capture/import time, byte size, hash, MIME type, capture method, and an opaque local vault identity. It proves properties of the stored record, not truth of everything depicted or asserted inside it.
+
+## Account
+
+An Account is attributable narration or observation. Its author, recorded time, source references, audience, and category remain separate from carrier identity.
 
 ## Descendants
 
-An edited image, transcript, redaction, scrapbook caption, trust classification, or export is a descendant. It never overwrites the original carrier or backdates a later interpretation.
+Cropping, transcription, captioning, redaction, scrapbook composition, trust-ledger rendering, and evidence export are descendants. They retain ancestry and may add interpretation. They do not rewrite the original.
 
-## Accounts
+## Relation birthdays
 
-Observer accounts cite carrier references. The protocol checks that a recorded account cannot precede the import time of the carrier it claims to use.
-
-## Extensions
-
-Core objects reject unknown properties. Future/organization-specific data belongs under namespaced extension keys so new meaning cannot silently appear in the core grammar.
+A later relationship between old carriers is allowed to be new. The system should preserve when a relation was asserted or admitted rather than pretending an old carrier always had today's meaning.
