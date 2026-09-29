@@ -168,3 +168,97 @@ export type CertificateReadyPacket = {
   execution_carrier_refs?: string[];
   extensions?: Extensions;
 };
+
+
+export type TrustAsset = {
+  asset_id: string;
+  trust_id: string;
+  description: string;
+  ownership_state: 'trust_property' | 'personal_property' | 'third_party_property' | 'disputed' | 'unknown';
+  custody_ref: string;
+  ownership_carrier_refs: string[];
+  restriction_refs: string[];
+  acquired_at?: string;
+  acquisition_ref?: string;
+  disposed_at?: string;
+  disposition_ref?: string;
+  extensions?: Extensions;
+};
+
+export type TrustTransaction = {
+  transaction_id: string;
+  trust_id: string;
+  type: 'contribution' | 'expenditure' | 'distribution' | 'transfer' | 'reimbursement' | 'other';
+  recorded_at: string;
+  asset_refs: string[];
+  carrier_refs: string[];
+  amount_minor?: number;
+  currency?: string;
+  nonmonetary_description?: string;
+  authority_event_ref?: string;
+  counterparty_ref?: string;
+  extensions?: Extensions;
+};
+
+export type TrustDecision = {
+  decision_id: string;
+  trust_id: string;
+  proposal_ref: string;
+  authority_basis_refs: string[];
+  approval_refs: string[];
+  recusal_refs: string[];
+  status: 'proposed' | 'approved' | 'executed' | 'reversed' | 'disputed' | 'unknown';
+  proposed_at: string;
+  effective_at?: string;
+  executed_at?: string;
+  recorded_at: string;
+  carrier_refs: string[];
+  extensions?: Extensions;
+};
+
+export type ConflictDisclosure = {
+  disclosure_id: string;
+  trust_id: string;
+  related_party_refs: string[];
+  action_ref: string;
+  disclosure_carrier_refs: string[];
+  recusal_state: 'recused' | 'not_recused' | 'not_applicable' | 'unknown';
+  approval_refs: string[];
+  consent_refs: string[];
+  court_order_refs: string[];
+  recorded_at: string;
+  effective_at?: string;
+  extensions?: Extensions;
+};
+
+export type DisclosureEvent = {
+  disclosure_event_id: string;
+  trust_id: string;
+  requested_at?: string;
+  requester_ref?: string;
+  audience: string;
+  material_refs: string[];
+  furnished_at?: string;
+  furnished_carrier_refs: string[];
+  waiver_ref?: string;
+  governing_instrument_basis_ref?: string;
+  recorded_at: string;
+  extensions?: Extensions;
+};
+
+export type CompliancePosition = {
+  position_id: string;
+  trust_id: string;
+  obligation_type: string;
+  jurisdiction: string;
+  claimed_status: 'claimed_exempt' | 'registered' | 'filing_recorded' | 'not_claimed' | 'unknown';
+  authority_source_refs: string[];
+  factual_basis: string;
+  filed_carrier_refs: string[];
+  acknowledgment_carrier_refs: string[];
+  effective_from?: string;
+  effective_to?: string;
+  superseded_by?: string;
+  authority_boundary: 'recorded_position_not_legal_determination';
+  extensions?: Extensions;
+};

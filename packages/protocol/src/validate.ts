@@ -13,7 +13,13 @@ import trustInstrumentSchema from '../schemas/trust-instrument.schema.json' with
 import trusteeTenureSchema from '../schemas/trustee-tenure.schema.json' with { type: 'json' };
 import authorityEventSchema from '../schemas/authority-event.schema.json' with { type: 'json' };
 import certificateReadyPacketSchema from '../schemas/certificate-ready-packet.schema.json' with { type: 'json' };
-import type { AuthorityEvent, CertificateReadyPacket, Moment, TrustInstrument, TrustProfile, TrusteeTenure, ValidationError, ValidationResult } from './types.js';
+import trustAssetSchema from '../schemas/trust-asset.schema.json' with { type: 'json' };
+import trustTransactionSchema from '../schemas/trust-transaction.schema.json' with { type: 'json' };
+import trustDecisionSchema from '../schemas/trust-decision.schema.json' with { type: 'json' };
+import conflictDisclosureSchema from '../schemas/conflict-disclosure.schema.json' with { type: 'json' };
+import disclosureEventSchema from '../schemas/disclosure-event.schema.json' with { type: 'json' };
+import compliancePositionSchema from '../schemas/compliance-position.schema.json' with { type: 'json' };
+import type { AuthorityEvent, CertificateReadyPacket, CompliancePosition, ConflictDisclosure, DisclosureEvent, Moment, TrustAsset, TrustDecision, TrustInstrument, TrustProfile, TrustTransaction, TrusteeTenure, ValidationError, ValidationResult } from './types.js';
 
 const ajv = new Ajv2020({ allErrors: true, strict: false });
 addFormats(ajv);
@@ -31,6 +37,12 @@ for (const schema of [
   trusteeTenureSchema,
   authorityEventSchema,
   certificateReadyPacketSchema,
+  trustAssetSchema,
+  trustTransactionSchema,
+  trustDecisionSchema,
+  conflictDisclosureSchema,
+  disclosureEventSchema,
+  compliancePositionSchema,
 ]) {
   ajv.addSchema(schema);
 }
@@ -50,6 +62,12 @@ const trustInstrumentValidator = registeredValidator('https://trust.static/schem
 const trusteeTenureValidator = registeredValidator('https://trust.static/schemas/trustee-tenure.schema.json');
 const authorityEventValidator = registeredValidator('https://trust.static/schemas/authority-event.schema.json');
 const certificateReadyPacketValidator = registeredValidator('https://trust.static/schemas/certificate-ready-packet.schema.json');
+const trustAssetValidator = registeredValidator('https://trust.static/schemas/trust-asset.schema.json');
+const trustTransactionValidator = registeredValidator('https://trust.static/schemas/trust-transaction.schema.json');
+const trustDecisionValidator = registeredValidator('https://trust.static/schemas/trust-decision.schema.json');
+const conflictDisclosureValidator = registeredValidator('https://trust.static/schemas/conflict-disclosure.schema.json');
+const disclosureEventValidator = registeredValidator('https://trust.static/schemas/disclosure-event.schema.json');
+const compliancePositionValidator = registeredValidator('https://trust.static/schemas/compliance-position.schema.json');
 
 const FORBIDDEN_KEYS = new Set([
   'parent_score',
@@ -60,6 +78,9 @@ const FORBIDDEN_KEYS = new Set([
   'credibility_score',
   'best_parent',
   'legal_significance_score',
+  'legally_exempt',
+  'tax_exempt_established',
+  'legal_authority_confirmed',
 ]);
 const OFFSET_RE = /(?:Z|[+-]\d{2}:\d{2})$/i;
 
@@ -205,4 +226,75 @@ export function validateCertificateReadyPacket(value: unknown): ValidationResult
     requireOffset(item.prepared_at, '$.prepared_at', errors);
   }
   return validateWithSchema<CertificateReadyPacket>(value, certificateReadyPacketValidator, errors);
+}
+
+
+export function validateTrustAsset(value: unknown): ValidationResult<TrustAsset> {
+  const errors: ValidationError[] = [];
+  if (value && typeof value === 'object') {
+    const item = value as Partial<TrustAsset>;
+    requireOffset(item.acquired_at, '$.acquired_at', errors);
+    requireOffset(item.disposed_at, '$.disposed_at', errors);
+  }
+  return validateWithSchema<TrustAsset>(value, trustAssetValidator, errors);
+}
+
+export function validateTrustTransaction(value: unknown): ValidationResult<TrustTransaction> {
+  const errors: ValidationError[] = [];
+  if (value && typeof value === 'object') {
+    const item = value as Partial<TrustTransaction>;
+    requireOffset(item.recorded_at, '$.recorded_at', errors);
+    const hasAmount = item.amount_minor !== undefined;
+    const hasCurrency = item.currency !== undefined;
+    if (hasAmount !== hasCurrency) {
+      errors.push({ path: '$', message: 'monetary transactions require amount_minor and currency together' });
+    }
+    if (!hasAmount && !item.nonmonetary_description) {
+      errors.push({ path: '$', message: 'transaction requires monetary fields or nonmonetary_description' });
+    }
+  }
+  return validateWithSchema<TrustTransaction>(value, trustTransactionValidator, errors);
+}
+
+export function validateTrustDecision(value: unknown): ValidationResult<TrustDecision> {
+  const errors: ValidationError[] = [];
+  if (value && typeof value === 'object') {
+    const item = value as Partial<TrustDecision>;
+    requireOffset(item.proposed_at, '$.proposed_at', errors);
+    requireOffset(item.effective_at, '$.effective_at', errors);
+    requireOffset(item.executed_at, '$.executed_at', errors);
+    requireOffset(item.recorded_at, '$.recorded_at', errors);
+  }
+  return validateWithSchema<TrustDecision>(value, trustDecisionValidator, errors);
+}
+
+export function validateConflictDisclosure(value: unknown): ValidationResult<ConflictDisclosure> {
+  const errors: ValidationError[] = [];
+  if (value && typeof value === 'object') {
+    const item = value as Partial<ConflictDisclosure>;
+    requireOffset(item.recorded_at, '$.recorded_at', errors);
+    requireOffset(item.effective_at, '$.effective_at', errors);
+  }
+  return validateWithSchema<ConflictDisclosure>(value, conflictDisclosureValidator, errors);
+}
+
+export function validateDisclosureEvent(value: unknown): ValidationResult<DisclosureEvent> {
+  const errors: ValidationError[] = [];
+  if (value && typeof value === 'object') {
+    const item = value as Partial<DisclosureEvent>;
+    requireOffset(item.requested_at, '$.requested_at', errors);
+    requireOffset(item.furnished_at, '$.furnished_at', errors);
+    requireOffset(item.recorded_at, '$.recorded_at', errors);
+  }
+  return validateWithSchema<DisclosureEvent>(value, disclosureEventValidator, errors);
+}
+
+export function validateCompliancePosition(value: unknown): ValidationResult<CompliancePosition> {
+  const errors: ValidationError[] = [];
+  if (value && typeof value === 'object') {
+    const item = value as Partial<CompliancePosition>;
+    requireOffset(item.effective_from, '$.effective_from', errors);
+    requireOffset(item.effective_to, '$.effective_to', errors);
+  }
+  return validateWithSchema<CompliancePosition>(value, compliancePositionValidator, errors);
 }

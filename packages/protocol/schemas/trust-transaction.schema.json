@@ -1,0 +1,21 @@
+{
+  "$id": "https://trust.static/schemas/trust-transaction.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["transaction_id", "trust_id", "type", "recorded_at", "asset_refs", "carrier_refs"],
+  "properties": {
+    "transaction_id": {"type": "string", "minLength": 1},
+    "trust_id": {"type": "string", "minLength": 1},
+    "type": {"enum": ["contribution", "expenditure", "distribution", "transfer", "reimbursement", "other"]},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "asset_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "carrier_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "amount_minor": {"type": "integer"},
+    "currency": {"type": "string", "pattern": "^[A-Z]{3}$"},
+    "nonmonetary_description": {"type": "string", "minLength": 1},
+    "authority_event_ref": {"type": "string", "minLength": 1},
+    "counterparty_ref": {"type": "string", "minLength": 1},
+    "extensions": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/extensions"}
+  }
+}

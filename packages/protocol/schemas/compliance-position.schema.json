@@ -1,0 +1,23 @@
+{
+  "$id": "https://trust.static/schemas/compliance-position.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["position_id", "trust_id", "obligation_type", "jurisdiction", "claimed_status", "authority_source_refs", "factual_basis", "filed_carrier_refs", "acknowledgment_carrier_refs", "authority_boundary"],
+  "properties": {
+    "position_id": {"type": "string", "minLength": 1},
+    "trust_id": {"type": "string", "minLength": 1},
+    "obligation_type": {"type": "string", "minLength": 1},
+    "jurisdiction": {"type": "string", "minLength": 1},
+    "claimed_status": {"enum": ["claimed_exempt", "registered", "filing_recorded", "not_claimed", "unknown"]},
+    "authority_source_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "factual_basis": {"type": "string", "minLength": 1},
+    "filed_carrier_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "acknowledgment_carrier_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "effective_from": {"type": "string", "format": "date-time"},
+    "effective_to": {"type": "string", "format": "date-time"},
+    "superseded_by": {"type": "string", "minLength": 1},
+    "authority_boundary": {"const": "recorded_position_not_legal_determination"},
+    "extensions": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/extensions"}
+  }
+}

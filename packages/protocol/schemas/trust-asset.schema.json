@@ -1,0 +1,21 @@
+{
+  "$id": "https://trust.static/schemas/trust-asset.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["asset_id", "trust_id", "description", "ownership_state", "custody_ref", "ownership_carrier_refs", "restriction_refs"],
+  "properties": {
+    "asset_id": {"type": "string", "minLength": 1},
+    "trust_id": {"type": "string", "minLength": 1},
+    "description": {"type": "string", "minLength": 1},
+    "ownership_state": {"enum": ["trust_property", "personal_property", "third_party_property", "disputed", "unknown"]},
+    "custody_ref": {"type": "string", "minLength": 1},
+    "ownership_carrier_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "restriction_refs": {"type": "array", "items": {"type": "string", "minLength": 1}, "uniqueItems": true},
+    "acquired_at": {"type": "string", "format": "date-time"},
+    "acquisition_ref": {"type": "string", "minLength": 1},
+    "disposed_at": {"type": "string", "format": "date-time"},
+    "disposition_ref": {"type": "string", "minLength": 1},
+    "extensions": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/extensions"}
+  }
+}

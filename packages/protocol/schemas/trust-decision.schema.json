@@ -1,0 +1,22 @@
+{
+  "$id": "https://trust.static/schemas/trust-decision.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["decision_id", "trust_id", "proposal_ref", "authority_basis_refs", "approval_refs", "recusal_refs", "status", "proposed_at", "recorded_at", "carrier_refs"],
+  "properties": {
+    "decision_id": {"type": "string", "minLength": 1},
+    "trust_id": {"type": "string", "minLength": 1},
+    "proposal_ref": {"type": "string", "minLength": 1},
+    "authority_basis_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "approval_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "recusal_refs": {"type": "array", "items": {"type": "string", "minLength": 1}},
+    "status": {"enum": ["proposed", "approved", "executed", "reversed", "disputed", "unknown"]},
+    "proposed_at": {"type": "string", "format": "date-time"},
+    "effective_at": {"type": "string", "format": "date-time"},
+    "executed_at": {"type": "string", "format": "date-time"},
+    "recorded_at": {"type": "string", "format": "date-time"},
+    "carrier_refs": {"type": "array", "minItems": 1, "items": {"type": "string", "minLength": 1}},
+    "extensions": {"$ref": "https://trust.static/schemas/common.schema.json#/$defs/extensions"}
+  }
+}
