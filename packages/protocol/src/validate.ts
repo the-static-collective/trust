@@ -19,7 +19,7 @@ import trustDecisionSchema from '../schemas/trust-decision.schema.json' with { t
 import conflictDisclosureSchema from '../schemas/conflict-disclosure.schema.json' with { type: 'json' };
 import disclosureEventSchema from '../schemas/disclosure-event.schema.json' with { type: 'json' };
 import compliancePositionSchema from '../schemas/compliance-position.schema.json' with { type: 'json' };
-import type { AuthorityEvent, CertificateReadyPacket, CompliancePosition, ConflictDisclosure, DisclosureEvent, Moment, TrustAsset, TrustDecision, TrustInstrument, TrustProfile, TrustTransaction, TrusteeTenure, ValidationError, ValidationResult } from './types.js';
+import type { AuthorityEvent, CertificateReadyPacket, CompliancePosition, ConflictDisclosure, DisclosureEvent, Moment, TrustAsset, TrustDecision, TrustInstrument, TrustProfile, TrustTransaction, TrusteeTenure, ValidationError, ValidationResult } from './types';
 
 const ajv = new Ajv2020({ allErrors: true, strict: false });
 addFormats(ajv);
