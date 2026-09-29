@@ -33,3 +33,11 @@ jobs:
         run: npm run export:android --workspace @trust/mobile
       - name: Docs tests if present
         run: node --test scripts/check-docs.test.mjs
+      - name: Verification contract
+        run: node --test scripts/verify-contract.test.mjs
+      - name: Preserve generated lockfile
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-lock-current
+          path: package-lock.json
