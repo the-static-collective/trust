@@ -247,6 +247,7 @@ git commit -m "Genesis: establish public repository boundary"
 - Create: `packages/protocol/src/index.ts`
 - Create: `packages/protocol/src/types.ts`
 - Create: `packages/protocol/src/validate.ts`
+- Create: `packages/protocol/src/examples.ts`
 - Create: `packages/protocol/schemas/common.schema.json`
 - Create: `packages/protocol/schemas/capture-receipt.schema.json`
 - Create: `packages/protocol/schemas/carrier.schema.json`
@@ -267,7 +268,7 @@ git commit -m "Genesis: establish public repository boundary"
   - `validateMoment(value: unknown): ValidationResult<Moment>`
   - `assertMoment(value: unknown): Moment`
   - exported `Moment`, `Carrier`, `CaptureReceipt`, `Account`, `DirectStatement`, `PrivacyPolicy`, `AudiencePolicy` types.
-  - canonical synthetic fixture used by Task 5 mobile app.
+  - `@trust/protocol/examples` export containing `canonicalMomentFixture`, which is loaded from the single root synthetic fixture and consumed by Task 5; no mobile-only fixture copy.
 
 - [ ] **Step 1: Write failing Moment protocol tests**
 
@@ -352,6 +353,17 @@ Pinned decisions:
   - `credibility_score`
   - `best_parent`
   - `legal_significance_score`
+
+`packages/protocol/package.json` decisions:
+
+- `name: "@trust/protocol"`
+- `version: "0.1.0"`
+- `private: true` for Genesis; publication is a later release decision.
+- `type: "module"`
+- exports: `.` and `./examples`.
+- runtime validator dependencies stay on Ajv 8 / ajv-formats 3 major lines; the lockfile fixes the exact install.
+
+`src/examples.ts` exports `canonicalMomentFixture` by importing the single root fixture; tests assert that the exported value passes `validateMoment`.
 
 `validateMoment` returns:
 
@@ -673,7 +685,7 @@ git commit -m "Protocol: encode Minnesota trust administration baseline"
 **Interfaces:**
 - Consumes:
   - `@trust/protocol` workspace package;
-  - `fixtures/synthetic/moment-red-swing.json`.
+  - `@trust/protocol/examples`, backed by `fixtures/synthetic/moment-red-swing.json`.
 - Produces:
   - `toMomentViewModel(moment: Moment): MomentViewModel`
   - minimal Expo app that validates the fixture through `@trust/protocol` before rendering;
@@ -730,7 +742,7 @@ Pinned runtime versions:
 
 Use a single `App.tsx`, no router and no navigation dependency in Genesis.
 
-The mobile package depends on `@trust/protocol: "*"` through npm workspaces.
+The mobile package is named `@trust/mobile`, is `private: true`, and depends on `@trust/protocol: "*"` through npm workspaces.
 
 No SQLite, camera, filesystem, SecureStore, crypto, cloud, or AI dependencies are added in this task. Those belong to Crossing 2.
 
@@ -738,7 +750,7 @@ No SQLite, camera, filesystem, SecureStore, crypto, cloud, or AI dependencies ar
 
 `App.tsx` must:
 
-1. import the canonical synthetic Moment JSON;
+1. import `canonicalMomentFixture` from `@trust/protocol/examples`;
 2. call `assertMoment` from `@trust/protocol`;
 3. pass the validated value to `toMomentViewModel`;
 4. render `MomentCard`;
