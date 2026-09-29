@@ -1,0 +1,176 @@
+{
+  "protocol_version": "0.1.0",
+  "bundle_id": "trust-bundle-synthetic-minnesota-001",
+  "trust_profile": {
+    "trust_id": "trust-synthetic-minnesota-001",
+    "legal_name": "Synthetic Community Stewardship Trust",
+    "instrument_refs": ["instrument-synthetic-declaration-001", "instrument-synthetic-amendment-001"],
+    "instrument_date": "2026-09-29",
+    "stated_purpose": "Religious and charitable stewardship for a synthetic community.",
+    "governing_law": "Minnesota",
+    "principal_place_of_administration": "Minnesota",
+    "trustee_tenure_refs": ["tenure-synthetic-a", "tenure-synthetic-b"],
+    "status": "active"
+  },
+  "instruments": [
+    {
+      "instrument_id": "instrument-synthetic-declaration-001",
+      "instrument_type": "declaration",
+      "carrier_refs": ["carrier-synthetic-declaration-pdf"],
+      "effective_at": "2026-09-29T09:00:00-05:00",
+      "recorded_at": "2026-09-29T09:05:00-05:00",
+      "supersedes": []
+    },
+    {
+      "instrument_id": "instrument-synthetic-amendment-001",
+      "instrument_type": "amendment",
+      "carrier_refs": ["carrier-synthetic-amendment-pdf"],
+      "effective_at": "2026-10-01T09:00:00-05:00",
+      "recorded_at": "2026-10-01T09:02:00-05:00",
+      "supersedes": ["instrument-synthetic-declaration-001"]
+    }
+  ],
+  "trustee_tenures": [
+    {
+      "tenure_id": "tenure-synthetic-a",
+      "trustee_ref": "person-synthetic-trustee-a",
+      "designation_ref": "instrument-synthetic-declaration-001",
+      "acceptance_status": "accepted",
+      "acceptance_method": "performed_duty",
+      "acceptance_carrier_refs": ["carrier-synthetic-acceptance-a"],
+      "starts_at": "2026-09-29T09:10:00-05:00",
+      "powers": ["hold_property", "pay_expenses"],
+      "limitations": ["two_trustees_for_asset_sale"]
+    },
+    {
+      "tenure_id": "tenure-synthetic-b",
+      "trustee_ref": "person-synthetic-trustee-b",
+      "designation_ref": "instrument-synthetic-declaration-001",
+      "acceptance_status": "accepted",
+      "acceptance_method": "instrument_method",
+      "acceptance_carrier_refs": ["carrier-synthetic-acceptance-b"],
+      "starts_at": "2026-09-29T09:12:00-05:00",
+      "powers": ["hold_property", "approve_distributions"],
+      "limitations": ["two_trustees_for_asset_sale"]
+    }
+  ],
+  "assets": [
+    {
+      "asset_id": "asset-synthetic-checking-001",
+      "trust_id": "trust-synthetic-minnesota-001",
+      "description": "Synthetic trust checking account",
+      "ownership_state": "trust_property",
+      "custody_ref": "account-synthetic-trust-checking",
+      "ownership_carrier_refs": ["carrier-synthetic-bank-title"],
+      "restriction_refs": ["restriction-synthetic-ministry-use"],
+      "acquired_at": "2026-09-29T09:30:00-05:00",
+      "acquisition_ref": "transaction-synthetic-contribution-001"
+    }
+  ],
+  "transactions": [
+    {
+      "transaction_id": "transaction-synthetic-contribution-001",
+      "trust_id": "trust-synthetic-minnesota-001",
+      "type": "contribution",
+      "recorded_at": "2026-09-29T09:30:00-05:00",
+      "asset_refs": ["asset-synthetic-checking-001"],
+      "carrier_refs": ["carrier-synthetic-deposit-receipt"],
+      "amount_minor": 250000,
+      "currency": "USD",
+      "counterparty_ref": "person-synthetic-donor-a"
+    },
+    {
+      "transaction_id": "transaction-synthetic-expenditure-001",
+      "trust_id": "trust-synthetic-minnesota-001",
+      "type": "expenditure",
+      "recorded_at": "2026-09-29T14:00:00-05:00",
+      "asset_refs": ["asset-synthetic-checking-001"],
+      "carrier_refs": ["carrier-synthetic-craft-receipt"],
+      "amount_minor": 4216,
+      "currency": "USD",
+      "authority_event_ref": "authority-synthetic-expense-001"
+    }
+  ],
+  "decisions": [
+    {
+      "decision_id": "decision-synthetic-expense-001",
+      "trust_id": "trust-synthetic-minnesota-001",
+      "proposal_ref": "proposal-synthetic-expense-001",
+      "authority_basis_refs": ["instrument-synthetic-declaration-001"],
+      "approval_refs": ["approval-synthetic-a", "approval-synthetic-b"],
+      "recusal_refs": [],
+      "status": "executed",
+      "proposed_at": "2026-09-29T13:00:00-05:00",
+      "effective_at": "2026-09-29T13:30:00-05:00",
+      "executed_at": "2026-09-29T14:00:00-05:00",
+      "recorded_at": "2026-09-29T14:02:00-05:00",
+      "carrier_refs": ["carrier-synthetic-resolution"]
+    }
+  ],
+  "conflicts": [
+    {
+      "disclosure_id": "conflict-synthetic-001",
+      "trust_id": "trust-synthetic-minnesota-001",
+      "related_party_refs": ["person-synthetic-trustee-a", "vendor-synthetic-related"],
+      "action_ref": "decision-synthetic-vendor-001",
+      "disclosure_carrier_refs": ["carrier-synthetic-conflict-note"],
+      "recusal_state": "recused",
+      "approval_refs": ["approval-synthetic-b"],
+      "consent_refs": [],
+      "court_order_refs": [],
+      "recorded_at": "2026-09-30T10:00:00-05:00"
+    }
+  ],
+  "disclosure_events": [
+    {
+      "disclosure_event_id": "disclosure-synthetic-001",
+      "trust_id": "trust-synthetic-minnesota-001",
+      "requested_at": "2026-09-30T11:00:00-05:00",
+      "requester_ref": "person-synthetic-recipient-a",
+      "audience": "beneficiary_or_qualified_recipient",
+      "material_refs": ["statement-synthetic-admin-001"],
+      "furnished_at": "2026-09-30T12:00:00-05:00",
+      "furnished_carrier_refs": ["carrier-synthetic-disclosure-email"],
+      "recorded_at": "2026-09-30T12:01:00-05:00"
+    }
+  ],
+  "compliance_positions": [
+    {
+      "position_id": "compliance-synthetic-mn-charitable-trust-001",
+      "trust_id": "trust-synthetic-minnesota-001",
+      "obligation_type": "minnesota_charitable_trust_registration",
+      "jurisdiction": "Minnesota",
+      "claimed_status": "claimed_exempt",
+      "authority_source_refs": ["Minn. Stat. § 501B.36"],
+      "factual_basis": "Synthetic scenario: religious-purpose trust administered by a qualifying religious association.",
+      "filed_carrier_refs": ["carrier-synthetic-exemption-notice"],
+      "acknowledgment_carrier_refs": ["carrier-synthetic-ag-acknowledgment"],
+      "effective_from": "2026-09-29T09:00:00-05:00",
+      "authority_boundary": "recorded_position_not_legal_determination"
+    }
+  ],
+  "certificate_ready_packet": {
+    "packet_id": "certificate-ready-synthetic-001",
+    "trust_id": "trust-synthetic-minnesota-001",
+    "trust_name": "Synthetic Community Stewardship Trust",
+    "instrument_date": "2026-09-29",
+    "trustees": [
+      {
+        "trustee_ref": "person-synthetic-trustee-a",
+        "address": "Synthetic Address A, Minnesota",
+        "powers": ["hold_property", "pay_expenses"],
+        "limitations": ["two_trustees_for_asset_sale"]
+      },
+      {
+        "trustee_ref": "person-synthetic-trustee-b",
+        "address": "Synthetic Address B, Minnesota",
+        "powers": ["hold_property", "approve_distributions"],
+        "limitations": ["two_trustees_for_asset_sale"]
+      }
+    ],
+    "trustees_required_to_act": 2,
+    "termination_revocation_state": "active",
+    "authority_boundary": "draft_data_only",
+    "prepared_at": "2026-09-30T13:00:00-05:00"
+  }
+}

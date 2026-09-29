@@ -1,0 +1,13 @@
+{
+  "position_id": "compliance-invalid-001",
+  "trust_id": "trust-synthetic-minnesota-001",
+  "obligation_type": "minnesota_charitable_trust_registration",
+  "jurisdiction": "Minnesota",
+  "claimed_status": "claimed_exempt",
+  "authority_source_refs": ["Minn. Stat. § 501B.36"],
+  "factual_basis": "Synthetic only.",
+  "filed_carrier_refs": [],
+  "acknowledgment_carrier_refs": [],
+  "authority_boundary": "recorded_position_not_legal_determination",
+  "legally_exempt": true
+}

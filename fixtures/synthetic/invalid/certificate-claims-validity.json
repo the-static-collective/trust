@@ -1,0 +1,12 @@
+{
+  "packet_id": "certificate-invalid-001",
+  "trust_id": "trust-synthetic-minnesota-001",
+  "trust_name": "Synthetic Community Stewardship Trust",
+  "instrument_date": "2026-09-29",
+  "trustees": [{"trustee_ref": "person-synthetic-a", "powers": [], "limitations": []}],
+  "trustees_required_to_act": 1,
+  "termination_revocation_state": "active",
+  "authority_boundary": "draft_data_only",
+  "prepared_at": "2026-09-30T13:00:00-05:00",
+  "legally_valid": true
+}
