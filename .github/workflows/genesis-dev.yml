@@ -31,3 +31,5 @@ jobs:
         run: npm run typecheck --workspace @trust/mobile --if-present
       - name: Expo Android export smoke
         run: npm run export:android --workspace @trust/mobile
+      - name: Docs tests if present
+        run: node --test scripts/check-docs.test.mjs
