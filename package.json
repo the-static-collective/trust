@@ -2,10 +2,16 @@
   "name": "trust",
   "version": "0.1.0",
   "private": true,
-  "workspaces": ["packages/*", "apps/*"],
-  "engines": {"node": ">=22.13.0"},
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ],
+  "engines": {
+    "node": ">=22.13.0"
+  },
   "scripts": {
     "test:boundary": "node --test scripts/check-public-boundary.test.mjs",
-    "public-boundary": "node scripts/check-public-boundary.mjs"
+    "public-boundary": "node scripts/check-public-boundary.mjs",
+    "docs:check": "node scripts/check-docs.mjs"
   }
 }
