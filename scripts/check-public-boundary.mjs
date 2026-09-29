@@ -15,7 +15,7 @@ const PRIVATE_SOURCE_MARKER = ['gdrive', ':'].join('');
 const PUBLIC_ASSET_PREFIXES = ['apps/mobile/assets/'];
 const PRIVATE_SOURCE_PATTERNS = [
   new RegExp(PRIVATE_SOURCE_MARKER + '[A-Za-z0-9_-]{8,}', 'i'),
-  /https?:\\/\\/(?:drive|docs)\\.google\\.com\\/(?:file\\/d\\/|drive\\/folders\\/|document\\/d\\/|spreadsheets\\/d\\/|presentation\\/d\\/)[A-Za-z0-9_-]{8,}/i,
+  new RegExp('https?://(?:drive|docs)\\.google\\.com/(?:file/d/|drive/folders/|document/d/|spreadsheets/d/|presentation/d/)[A-Za-z0-9_-]{8,}', 'i'),
 ];
 
 async function defaultListFiles(root) {
