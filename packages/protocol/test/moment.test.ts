@@ -59,6 +59,16 @@ describe('Moment protocol', () => {
     expect(validateMoment(audienceLeak).ok).toBe(false);
   });
 
+  it('rejects allegation and administrative records from child-facing memory', () => {
+    for (const accountKind of ['allegation', 'administrative_record']) {
+      const bad = clone(canonical) as any;
+      bad.accounts[0].account_kind = accountKind;
+      bad.accounts[0].memory_eligible = true;
+      bad.accounts[0].audiences = ['private_archive', 'child_future', 'scrapbook'];
+      expect(validateMoment(bad).ok).toBe(false);
+    }
+  });
+
   it('rejects prohibited parent/custody/truth score keys anywhere in a Moment', () => {
     const bad = clone(canonical) as any;
     bad.accounts[0].analysis = { custody_score: 0.92 };
