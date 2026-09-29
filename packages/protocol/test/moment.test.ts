@@ -47,6 +47,18 @@ describe('Moment protocol', () => {
     expect(canonical.accounts[0].assertions[1].value).not.toBe(canonical.accounts[1].assertions[0].value);
   });
 
+  it('rejects adult-conflict material from memory and child-facing audiences', () => {
+    const memoryLeak = clone(canonical) as any;
+    memoryLeak.accounts[0].adult_conflict = true;
+    memoryLeak.accounts[0].memory_eligible = true;
+    expect(validateMoment(memoryLeak).ok).toBe(false);
+
+    const audienceLeak = clone(canonical) as any;
+    audienceLeak.direct_statements[0].adult_conflict = true;
+    audienceLeak.direct_statements[0].memory_eligible = false;
+    expect(validateMoment(audienceLeak).ok).toBe(false);
+  });
+
   it('rejects prohibited parent/custody/truth score keys anywhere in a Moment', () => {
     const bad = clone(canonical) as any;
     bad.accounts[0].analysis = { custody_score: 0.92 };

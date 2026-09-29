@@ -88,3 +88,25 @@ test('boundary implementation does not embed the forbidden source marker', async
   assert.equal(checker.includes(marker), false);
   assert.equal(tests.includes(marker), false);
 });
+
+test('allows public mobile design assets', async () => {
+  const { checkPublicBoundary } = await loadChecker();
+  await withTree({ 'apps/mobile/assets/icon.png': 'synthetic public app asset' }, async (root) => {
+    const result = await checkPublicBoundary(root, {
+      listFiles: async () => ['apps/mobile/assets/icon.png'],
+    });
+    assert.equal(result.ok, true, JSON.stringify(result, null, 2));
+  });
+});
+
+test('rejects actual-looking private source refs even in design artifacts', async () => {
+  const { checkPublicBoundary } = await loadChecker();
+  const privateRef = ['gdrive', ':'].join('') + 'PRIVATE-ID-12345';
+  await withTree({ 'docs/superpowers/plans/example.md': privateRef }, async (root) => {
+    const result = await checkPublicBoundary(root, {
+      listFiles: async () => ['docs/superpowers/plans/example.md'],
+    });
+    assert.equal(result.ok, false);
+    assert.match(result.violations[0].reason, /private source reference/i);
+  });
+});
