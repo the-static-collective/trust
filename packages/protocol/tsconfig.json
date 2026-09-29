@@ -2,7 +2,9 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "rootDir": "../..",
-    "noEmit": true
+    "noEmit": true,
+    "module": "ESNext",
+    "moduleResolution": "Bundler"
   },
   "include": ["src/**/*.ts", "test/**/*.ts", "../../fixtures/synthetic/**/*.json"]
 }
